@@ -164,36 +164,11 @@
 
         init_btn_loading($btn, true);
 
-        
-        $.post("src/php/sendmail.php", params, function(data) {
-          var dt = JSON.parse(data);
-          if (dt.status == "error") {
-            var alert = init_alert(
-              "contact-alert-err",
-              dt.status_desc,
-              "uk-alert-danger",
-              "warning"
-            );
-          } else {
-            var alert = init_alert(
-              "contact-alert-success",
-              dt.status_desc,
-              "uk-alert-primary",
-              "info"
-            );
-            $el.trigger("reset");
-          }
-          $.each(dt.error_msg, function(key, value) {
-            if (value == "") {
-              $("#" + key).removeClass("uk-form-danger");
-            } else {
-              $("#" + key).addClass("uk-form-danger");
-            }
-            $("#" + key + "_error").html(value);
-          });
-          $alert_wrap.html(alert);
-          init_btn_loading($btn, false);
-        });
+        var emailTo = "andrei.uji22@gmail.com"
+        var emailSub = document.querySelector('input[name="f_subject"]:checked').value
+        const emailBody = document.getElementById("f_message").value
+        window.open(`mailto:${emailTo}?&subject=${emailSub}&body=${emailBody}`, '_self');
+        init_btn_loading($btn, false);
 
         return false;
       });
